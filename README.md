@@ -28,7 +28,7 @@ env:
 
 install:
 - curl --location --retry 3 ${TRIGGER_ORIGIN}/requirements.txt --output trigger-awx-requirements.txt
-- curl --location --retry 3 ${TRIGGER_ORIGIN}/trigger-travis.py --output trigger-awx.py
+- curl --location --retry 3 ${TRIGGER_ORIGIN}/trigger-travis.sh --output trigger-awx.sh
 - pip install -r trigger-awx-requirements.txt
 - chmod +x trigger-awx.sh
 
