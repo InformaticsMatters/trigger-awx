@@ -3,7 +3,7 @@
 A utility to trigger (execute) Job Templates on a designated AWX server
 using the [Ansible Tower CLI].
 
-# Use in `.travis.yml`
+## Use in .travis.yml
 To make a Travis build trigger a Job Template n an AWX server, do two things:
 
 1.  Set appropriate environment variables as described in the
