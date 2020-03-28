@@ -10,7 +10,11 @@ using the [Ansible Tower CLI].
 
 >   Remember that Job Templates that you expect to run on AWX must be
     executable by the user you provide.
-  
+ 
+>   Any AWX Job Template you execute should have the **PROMPT ON LAUNCH**
+    option selected in the **EXTRA VARIABLES** section. If not, variables
+    passed-in via the underlying tower-cli command will be ignored.
+
 ## Use in .travis.yml
 To make a Travis build trigger a Job Template on an AWX server, do two things:
 
