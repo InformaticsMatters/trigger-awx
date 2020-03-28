@@ -34,7 +34,7 @@ set -eo pipefail
 : "${AWX_USER?Need to set AWX_USER}"
 : "${AWX_USER_PASSWORD?Need to set AWX_USER_PASSWORD}"
 
-f [[ -z "$1" ]]; then
+if [[ -z "$1" ]]; then
   echo "ERROR: Missing tag"
   echo "Usage: trigger-awx-tag.sh <tag> <tag-variable> <job-name>"
   exit 1
