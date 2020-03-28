@@ -7,6 +7,9 @@ using the [Ansible Tower CLI].
   normally execute based on a new fixed tag, like `stable` or `latest`
 - `trigger-awx-tag` is used to provide a Job Template tag variable and value
   so that Jobs can be run to deploy an image based on a specific tag.
+
+>   Remember that Job Templates that you expect to run on AWX must be
+    executable by the user you provide.
   
 ## Use in .travis.yml
 To make a Travis build trigger a Job Template on an AWX server, do two things:
