@@ -7,7 +7,7 @@
 #
 # usage: ./trigger-awx.sh
 #
-# As this script is normally executed from wthin a Travis VM
+# As this script is normally executed from within a Travis VM
 # it uses environment variables to control the script's actions. Namely: -
 #
 # - AWX_JOB_NAME      The name of the Job Template to execute
@@ -15,10 +15,11 @@
 # - AWX_USER          The name of a user that can execute the Job
 # - AWX_USER_PASSWORD The user's password
 #
-# Travis can encrypt the variables but avoid encrypting AWX_JOB_NAME
-# and make sure you use double-quotes if there are any spaces in the Job name.
+# Note: Travis can encrypt the variables but avoid encrypting AWX_JOB_NAME
+#       and make sure you use double-quotes if there are any spaces in the
+#       Job name.
 #
-# The script disabes any input that the AWX Job Template may request and
+# The script disables any input that the AWX Job Template may request and
 # then waits for the Job to complete.
 #
 # If the Job Template is not found the script exits with code 1.

@@ -15,6 +15,28 @@ using the [Ansible Tower CLI].
     option selected in the **EXTRA VARIABLES** section. If not, variables
     passed-in via the underlying tower-cli command will be ignored.
 
+There are two trigger scripts `trigger-awx.sh` and `trigger-awx-tag.sh`. The
+former is used to run named jobs and does not inject values into variables.
+It's designed to be used to run jobs that rely on `latest` or `stable`
+builds or simply require re-execution to perform an action. It expects the
+following environment variables, normally set via travis _Settings_: -
+
+-   `AWX_JOB_NAME`
+-   `AWX_HOST`
+-   `AWX_USER`
+-   `AWX_USER_PASSWORD`
+
+The latter expects the following variables but injects a value into a named
+Job Template variable and is typically used to run jobs that deploy a specific
+Docker image tag: -
+
+-   `AWX_HOST`
+-   `AWX_USER`
+-   `AWX_USER_PASSWORD`
+ 
+>   The latter is also easier to use from Travis to trigger more than
+    one Job Template. Refer to the individual scripts for details.
+
 ## Use in .travis.yml
 To make a Travis build trigger a Job Template on an AWX server, do two things:
 

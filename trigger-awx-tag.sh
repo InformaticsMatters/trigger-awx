@@ -1,17 +1,18 @@
 #!/bin/bash
 
-# A script to trigger an AWX Job Template given: -
+# A script to trigger an AWX Job Template given the following
+# on the command-line: -
 #
-# - a container image tag (i.e. '1.0.0'
+# - a container image tag (i.e. '1.0.0')
 # - the AWX Job Template variable to use for the tag (i.e. 'image_tag')
-# - and a Job Template name to run (i.e. 'Bother')
+# - a Job Template name to run (i.e. 'Bother')
 #
-# usage: ./trigger-awx-tag.sh <TAG> <JOB-TAG-VARIABLE> <JOB-NAME>
+# Usage: ./trigger-awx-tag.sh <TAG> <JOB-TAG-VARIABLE> <JOB-NAME>
 #
 # This assumes the 'tower-cli' utility is available,
 # usually installed via a requirements file prior to our execution.
 #
-# As this script is normally executed from wthin a CI framework
+# As this script is normally executed from within a CI framework
 # it also uses environment variables to control the script's actions
 # rather than overload the command-line. Namely: -
 #
@@ -20,10 +21,10 @@
 # - AWX_USER_PASSWORD The user's password
 #
 # Note: Travis can encrypt the variables but avoid encrypting AWX_JOB_NAME
-#       but make sure you use double-quotes if there are any spaces in the
+#       and make sure you use double-quotes if there are any spaces in the
 #       Job name.
 #
-# The script disabes any input that the AWX Job Template may request and
+# The script disables any input that the AWX Job Template may request and
 # then waits for the Job to complete.
 #
 # On error or if the Job Template is not found the script exits with code 1.
