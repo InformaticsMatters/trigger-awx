@@ -1,5 +1,4 @@
 # trigger-awx
-
 A utility to trigger (execute) Job Templates on a designated AWX server
 using the [Ansible Tower CLI].
 
@@ -57,8 +56,8 @@ python:
 
 env:
   global:
-  # The origin of the trigger code
-  - TRIGGER_ORIGIN=https://raw.githubusercontent.com/informaticsmatters/trigger-awx/master
+  # The tagged origin of the trigger code
+  - TRIGGER_ORIGIN=https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.0
 
 install:
 - curl --location --retry 3 ${TRIGGER_ORIGIN}/requirements.txt --output trigger-awx-requirements.txt
@@ -86,8 +85,8 @@ do two things:
 
 ```yaml
 variables:
-  # The trigger repo
-  TRIGGER_ORIGIN: https://raw.githubusercontent.com/informaticsmatters/trigger-awx/master
+  # The tagged origin of the trigger code
+  TRIGGER_ORIGIN: https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.0
 
 # If this is an official non-branch tag
 # (i.e. something like '1.0.0' without any pre-release qualifier)
