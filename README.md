@@ -36,6 +36,11 @@ Docker image tag: -
 >   The latter is also easier to use from Travis to trigger more than
     one Job Template. Refer to the individual scripts for details.
 
+>   **CAUTION** The CI/CD examples here _clone_ this repository into the
+    root of the CI/CD workspace of your repository. Consequently, any files
+    in the root of your repository with a name that begins `trigger-` may
+    get over-written.
+ 
 ## Use in .travis.yml
 To make a Travis build trigger a Job Template on an AWX server, do two things:
 
@@ -58,7 +63,7 @@ env:
   global:
   # The tagged origin of the trigger code
   # Always try and use the latest version of the trigger
-  - TRIGGER_ORIGIN=https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.1
+  - TRIGGER_ORIGIN=https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.2
 
 install:
 - curl --location --retry 3 ${TRIGGER_ORIGIN}/requirements.txt --output trigger-awx-requirements.txt
@@ -88,7 +93,7 @@ do two things:
 variables:
   # The tagged origin of the trigger code
   # Always try and use the latest version of the trigger
-  TRIGGER_ORIGIN: https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.1
+  TRIGGER_ORIGIN: https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.2
 
 # If this is an official non-branch tag
 # (i.e. something like '1.0.0' without any pre-release qualifier)
