@@ -64,15 +64,15 @@ jtid=$(tower-cli job_template list -n "${AWX_JOB_NAME}" -f id \
   -u "$AWX_USER" \
   -p "$AWX_USER_PASSWORD")
 
-# If we have a template ID then trigger a luanch.
-# Disable any input and over-ride the fs_image_tag value.
+# If we have a template ID then trigger a launch of the Job and
+# disable any input and over-ride the TAG_VARIABLE value.
 if [[ $jtid =~ ^[0-9]+$ ]]; then
   echo "Launching Job ID ${jtid} and waiting..."
   tower-cli job launch -J "$jtid" --no-input --wait \
     -h "$AWX_HOST" \
     -u "$AWX_USER" \
     -p "$AWX_USER_PASSWORD" \
-    -e "${TAG_VARIABLE}=${TAG}"
+    -e "${TAG_VARIABLE}='${TAG}'"
 else
   echo "Job Template '${AWX_JOB_NAME}' does not exist (${jtid})"
   exit 1

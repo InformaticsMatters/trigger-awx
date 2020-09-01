@@ -1,1 +1,1 @@
-ansible-tower-cli == 3.3.8
+ansible-tower-cli == 3.3.9
