@@ -57,7 +57,8 @@ TAG=$1
 TAG_VARIABLE=$2
 AWX_JOB_NAME=$3
 
-echo "Attempting to deploy image tag ${TAG_VARIABLE}=${TAG} to ${AWX_HOST} using Job Template '${AWX_JOB_NAME}'..."
+EXTRA_VARS="${TAG_VARIABLE}=\'${TAG}\'"
+echo "Attempting to deploy image tag ${EXTRA_VARS} to ${AWX_HOST} using Job Template '${AWX_JOB_NAME}'..."
 # Get the AWX Job Template ID from the expected Job Template name
 jtid=$(tower-cli job_template list -n "${AWX_JOB_NAME}" -f id \
   -h "$AWX_HOST" \
@@ -72,7 +73,7 @@ if [[ $jtid =~ ^[0-9]+$ ]]; then
     -h "$AWX_HOST" \
     -u "$AWX_USER" \
     -p "$AWX_USER_PASSWORD" \
-    -e "${TAG_VARIABLE}=\'${TAG}\'"
+    -e "${EXTRA_VARS}"
 else
   echo "Job Template '${AWX_JOB_NAME}' does not exist (${jtid})"
   exit 1
