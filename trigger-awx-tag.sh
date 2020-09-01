@@ -72,7 +72,7 @@ if [[ $jtid =~ ^[0-9]+$ ]]; then
     -h "$AWX_HOST" \
     -u "$AWX_USER" \
     -p "$AWX_USER_PASSWORD" \
-    -e "${TAG_VARIABLE}='${TAG}'"
+    -e "${TAG_VARIABLE}=\'${TAG}\'"
 else
   echo "Job Template '${AWX_JOB_NAME}' does not exist (${jtid})"
   exit 1
