@@ -57,7 +57,8 @@ python:
 env:
   global:
   # The tagged origin of the trigger code
-  - TRIGGER_ORIGIN=https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.0
+  # Always try and use the latest version of the trigger
+  - TRIGGER_ORIGIN=https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.1
 
 install:
 - curl --location --retry 3 ${TRIGGER_ORIGIN}/requirements.txt --output trigger-awx-requirements.txt
@@ -86,7 +87,8 @@ do two things:
 ```yaml
 variables:
   # The tagged origin of the trigger code
-  TRIGGER_ORIGIN: https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.0
+  # Always try and use the latest version of the trigger
+  TRIGGER_ORIGIN: https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.1
 
 # If this is an official non-branch tag
 # (i.e. something like '1.0.0' without any pre-release qualifier)
