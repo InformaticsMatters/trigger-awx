@@ -1,4 +1,9 @@
 # trigger-awx
+
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/informaticsmatters/trigger-awx)
+
+[![CodeFactor](https://www.codefactor.io/repository/github/informaticsmatters/trigger-awx/badge)](https://www.codefactor.io/repository/github/informaticsmatters/trigger-awx)
+
 A utility to trigger (execute) Job Templates on a designated AWX server
 using the [Ansible Tower CLI].
 
