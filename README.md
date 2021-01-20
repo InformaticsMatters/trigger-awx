@@ -26,7 +26,7 @@ builds or simply require re-execution to perform an action. It expects the
 following environment variables, normally set via travis _Settings_: -
 
 -   `AWX_JOB_NAME`
--   `AWX_HOST`
+-   `AWX_HOST` (i.e. `https://example.com`)
 -   `AWX_USER`
 -   `AWX_USER_PASSWORD`
 
@@ -34,7 +34,7 @@ The latter expects the following variables but injects a value into a named
 Job Template variable and is typically used to run jobs that deploy a specific
 Docker image tag: -
 
--   `AWX_HOST`
+-   `AWX_HOST` (i.e. `https://example.com`)
 -   `AWX_USER`
 -   `AWX_USER_PASSWORD`
  
