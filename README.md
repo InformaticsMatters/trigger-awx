@@ -21,7 +21,7 @@ the [ansible-tower-cli] package. Version 2 is designed to be used with [awxkit]
     passed-in via the underlying tower-cli command will be ignored.
 
 There are two trigger scripts `trigger-awx.sh` and `trigger-awx-tag.sh`. The
-former is used to run named jobs and does not inject values into variables.
+former is used to run named jobs and does not inject values into the playbook.
 It's designed to be used to run jobs that rely on `latest` or `stable`
 builds or simply require re-execution to perform an action. It expects the
 following environment variables, normally set via travis _Settings_: -
@@ -31,9 +31,9 @@ following environment variables, normally set via travis _Settings_: -
 -   `AWX_USER`
 -   `AWX_USER_PASSWORD`
 
-The latter expects the following variables but injects a value into a named
-Job Template variable and is typically used to run jobs that deploy a specific
-Docker image tag: -
+The latter expects the following variables and injects the given variable and value
+into the named Job Template as EXTRA_VARIABLES. It is typically used to run jobs that
+deploy a specific Docker image tag: -
 
 -   `AWX_HOST` (i.e. `https://example.com`)
 -   `AWX_USER`
@@ -114,7 +114,7 @@ deploy_production:
   - curl --location --retry 3 ${TRIGGER_ORIGIN}/trigger-awx-tag.sh --output trigger-awx-tag.sh
   - pip install -r trigger-awx-requirements.txt
   - chmod +x trigger-awx-tag.sh
-  - ./trigger-awx-tag.sh "${CI_COMMIT_TAG}" bother_image_tag Bother
+  - ./trigger-awx-tag.sh "${CI_COMMIT_TAG}" 1.0.0 Bother
   environment:
     name: production
   only:
