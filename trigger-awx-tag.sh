@@ -9,7 +9,7 @@
 #
 # Usage: ./trigger-awx-tag.sh <TAG> <JOB-TAG-VARIABLE> <JOB-NAME>
 #
-# This assumes the 'tower-cli' utility is available,
+# This assumes the 'awxkit' utility is available,
 # usually installed via a requirements file prior to our execution.
 #
 # As this script is normally executed from within a CI framework
@@ -55,26 +55,13 @@ fi
 
 TAG=$1
 TAG_VARIABLE=$2
-AWX_JOB_NAME=$3
+TEMPLATE=$3
 
-EXTRA_VARS="${TAG_VARIABLE}=\'${TAG}\'"
-echo "Attempting to deploy image tag ${EXTRA_VARS} to ${AWX_HOST} using Job Template '${AWX_JOB_NAME}'..."
-# Get the AWX Job Template ID from the expected Job Template name
-jtid=$(tower-cli job_template list -n "${AWX_JOB_NAME}" -f id \
-  -h "$AWX_HOST" \
-  -u "$AWX_USER" \
-  -p "$AWX_USER_PASSWORD")
+export CONTROLLER_HOST=${AWX_HOST}
+export CONTROLLER_USERNAME=${AWX_USER}
+export CONTROLLER_PASSWORD=${AWX_USER_PASSWORD}
 
-# If we have a template ID then trigger a launch of the Job and
-# disable any input and over-ride the TAG_VARIABLE value.
-if [[ $jtid =~ ^[0-9]+$ ]]; then
-  echo "Launching Job ID ${jtid} and waiting..."
-  tower-cli job launch -J "$jtid" --no-input --wait \
-    -h "$AWX_HOST" \
-    -u "$AWX_USER" \
-    -p "$AWX_USER_PASSWORD" \
-    -e "${EXTRA_VARS}"
-else
-  echo "Job Template '${AWX_JOB_NAME}' does not exist (${jtid})"
-  exit 1
-fi
+EXTRA_VARS={\"${TAG_VARIABLE}\":\"${TAG}\"}
+echo "EXTRA_VARS=${EXTRA_VARS}"
+echo "Launching Job Template ${TEMPLATE} and monitoring..."
+awx job_templates launch --monitor -e ${EXTRA_VARS} "${TEMPLATE}"

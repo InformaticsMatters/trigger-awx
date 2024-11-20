@@ -5,7 +5,8 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/informaticsmatters/trigger-awx/badge)](https://www.codefactor.io/repository/github/informaticsmatters/trigger-awx)
 
 A utility to trigger (execute) Job Templates on a designated AWX server
-using the [Ansible Tower CLI].
+using the Ansible CLI. Version 1 of this utility is designed to be used
+the [ansible-tower-cli] package. Version 2 is designed to be used with [awxkit]
 
 - `trigger-awx` is a simple trigger that just triggers a job that would
   normally execute based on a new fixed tag, like `stable` or `latest`
@@ -14,7 +15,7 @@ using the [Ansible Tower CLI].
 
 >   Remember that Job Templates that you expect to run on AWX must be
     executable by the user you provide.
- 
+
 >   Any AWX Job Template you execute should have the **PROMPT ON LAUNCH**
     option selected in the **EXTRA VARIABLES** section. If not, variables
     passed-in via the underlying tower-cli command will be ignored.
@@ -37,7 +38,7 @@ Docker image tag: -
 -   `AWX_HOST` (i.e. `https://example.com`)
 -   `AWX_USER`
 -   `AWX_USER_PASSWORD`
- 
+
 >   The latter is also easier to use from Travis to trigger more than
     one Job Template. Refer to the individual scripts for details.
 
@@ -45,7 +46,7 @@ Docker image tag: -
     root of the CI/CD workspace of your repository. Consequently, any files
     in the root of your repository with a name that begins `trigger-` may
     get over-written.
- 
+
 ## Use in .travis.yml
 To make a Travis build trigger a Job Template on an AWX server, do two things:
 
@@ -53,7 +54,7 @@ To make a Travis build trigger a Job Template on an AWX server, do two things:
     embedded documentation in the `trigger-awx.sh` script.
     These can be defined in the Travis console for the project (refer to the
     [Environment Variables] documentation on Travis).
-   
+
     You will need the AWX server URL, a job name and credentials for a user
     that can execute the chosen job.
 
@@ -68,7 +69,7 @@ env:
   global:
   # The tagged origin of the trigger code
   # Always try and use the latest version of the trigger
-  - TRIGGER_ORIGIN=https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.2
+  - TRIGGER_ORIGIN=https://raw.githubusercontent.com/informaticsmatters/trigger-awx/2.0.0
 
 install:
 - curl --location --retry 3 ${TRIGGER_ORIGIN}/requirements.txt --output trigger-awx-requirements.txt
@@ -88,7 +89,7 @@ do two things:
 
 1.  Set appropriate environment variables, normally through the project's
     CI/CD variables (refer to the [GitLab Variables] documentation).
-   
+
     You will need the AWX server URL, a job name and credentials for a user
     that can execute the chosen job.
 
@@ -98,7 +99,7 @@ do two things:
 variables:
   # The tagged origin of the trigger code
   # Always try and use the latest version of the trigger
-  TRIGGER_ORIGIN: https://raw.githubusercontent.com/informaticsmatters/trigger-awx/1.0.2
+  TRIGGER_ORIGIN: https://raw.githubusercontent.com/informaticsmatters/trigger-awx/2.0.0
 
 # If this is an official non-branch tag
 # (i.e. something like '1.0.0' without any pre-release qualifier)
@@ -107,7 +108,7 @@ deploy_production:
   stage: deploy
   tags:
   - docker
-  image: python:3.8
+  image: python:3.12
   script:
   - curl --location --retry 3 ${TRIGGER_ORIGIN}/requirements.txt --output trigger-awx-requirements.txt
   - curl --location --retry 3 ${TRIGGER_ORIGIN}/trigger-awx-tag.sh --output trigger-awx-tag.sh
@@ -124,6 +125,7 @@ deploy_production:
 
 ---
 
-[ansible tower cli]: https://pypi.org/project/ansible-tower-cli/ 
+[ansible-tower-cli]: https://pypi.org/project/ansible-tower-cli/
+[awxkit]: https://pypi.org/project/awxkit/
 [environment variables]: https://docs.travis-ci.com/user/environment-variables/
 [gitlab variables]: https://docs.gitlab.com/ee/ci/variables/
