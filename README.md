@@ -106,9 +106,9 @@ variables:
 # then deploy to the production environment.
 deploy_production:
   stage: deploy
-  tags:
-  - docker
-  image: python:3.12
+  # 3.12.5 has a memory safety issue that can cause Black's AST safety checks to fail.
+  # 3.12.7 may interfere with the AWX trigger logic.
+  image: python:3.12.4
   script:
   - curl --location --retry 3 ${TRIGGER_ORIGIN}/requirements.txt --output trigger-awx-requirements.txt
   - curl --location --retry 3 ${TRIGGER_ORIGIN}/trigger-awx-tag.sh --output trigger-awx-tag.sh
