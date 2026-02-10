@@ -62,6 +62,11 @@ export CONTROLLER_USERNAME=${AWX_USER}
 export CONTROLLER_PASSWORD=${AWX_USER_PASSWORD}
 
 EXTRA_VARS={\"${TAG_VARIABLE}\":\"${TAG}\"}
+
+echo "CONTROLLER_HOST=${CONTROLLER_HOST}"
+echo "CONTROLLER_USERNAME=${CONTROLLER_USERNAME}"
+echo "CONTROLLER_PASSWORD=${CONTROLLER_PASSWORD}"
 echo "EXTRA_VARS=${EXTRA_VARS}"
-echo "Launching Job Template ${TEMPLATE} and monitoring..."
+
+echo "Launching Job Template '${TEMPLATE}' and monitoring..."
 awx job_templates launch --monitor -e ${EXTRA_VARS} "${TEMPLATE}"
