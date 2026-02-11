@@ -31,13 +31,15 @@ set -eo pipefail
 : "${AWX_USER?Need to set AWX_USER}"
 : "${AWX_USER_PASSWORD?Need to set AWX_USER_PASSWORD}"
 
-export CONTROLLER_HOST=${AWX_HOST}
-export CONTROLLER_USERNAME=${AWX_USER}
-export CONTROLLER_PASSWORD=${AWX_USER_PASSWORD}
+echo "AWX_VERSION=`awx --version`"
+echo "AWX_JOB_NAME='${AWX_JOB_NAME}'"
+echo "AWX_HOST=${AWX_HOST}"
+echo "AWX_USER=${AWX_USER}"
+echo "AWX_USER_PASSWORD=${AWX_USER_PASSWORD}"
 
-echo "CONTROLLER_HOST=${CONTROLLER_HOST}"
-echo "CONTROLLER_USERNAME=${CONTROLLER_USERNAME}"
-echo "CONTROLLER_PASSWORD=${CONTROLLER_PASSWORD}"
-
-echo "Launching Job Template ${AWX_JOB_NAME} and monitoring..."
-awx job_templates launch --monitor "${AWX_JOB_NAME}"
+echo "Running 'awx job_templates launch' and monitoring..."
+awx job_templates launch "${AWX_JOB_NAME}" \
+  --conf.host ${AWX_HOST} \
+  --conf.username ${AWX_USER} \
+  --conf.password ${AWX_USER_PASSWORD} \
+  --monitor
