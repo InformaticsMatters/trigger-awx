@@ -31,6 +31,20 @@
 
 set -eo pipefail
 
+# Masks a password for display,
+# keeping only its first and last character (i.e. 'secret' becomes 's****t').
+# Passwords of two characters or fewer are masked completely.
+mask_password() {
+  local password="$1"
+  local length=${#password}
+  if [[ ${length} -le 2 ]]; then
+    echo "${password//?/*}"
+  else
+    local middle="${password:1:length-2}"
+    echo "${password:0:1}${middle//?/*}${password: -1}"
+  fi
+}
+
 TAG=$1
 TAG_VARIABLE=$2
 TEMPLATE=$3
@@ -38,7 +52,7 @@ TEMPLATE=$3
 echo "AWX_VERSION=`awx --version`"
 echo "AWX_HOST=${AWX_HOST}"
 echo "AWX_USER=${AWX_USER}"
-echo "AWX_USER_PASSWORD=${AWX_USER_PASSWORD}"
+echo "AWX_USER_PASSWORD=$(mask_password "${AWX_USER_PASSWORD}")"
 echo "TAG=${TAG}"
 echo "TAG_VARIABLE=${TAG_VARIABLE}"
 echo "TEMPLATE='${TEMPLATE}'"
