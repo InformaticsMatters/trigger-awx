@@ -31,6 +31,18 @@
 
 set -eo pipefail
 
+TAG=$1
+TAG_VARIABLE=$2
+TEMPLATE=$3
+
+echo "AWX_VERSION=`awx --version`"
+echo "AWX_HOST=${AWX_HOST}"
+echo "AWX_USER=${AWX_USER}"
+echo "AWX_USER_PASSWORD=${AWX_USER_PASSWORD}"
+echo "TAG=${TAG}"
+echo "TAG_VARIABLE=${TAG_VARIABLE}"
+echo "TEMPLATE='${TEMPLATE}'"
+
 : "${AWX_HOST?Need to set AWX_HOST}"
 : "${AWX_USER?Need to set AWX_USER}"
 : "${AWX_USER_PASSWORD?Need to set AWX_USER_PASSWORD}"
@@ -53,18 +65,8 @@ if [[ -z "$3" ]]; then
   exit 1
 fi
 
-TAG=$1
-TAG_VARIABLE=$2
-TEMPLATE=$3
-
 EXTRA_VARS={\"${TAG_VARIABLE}\":\"${TAG}\"}
-
-echo "AWX_VERSION=`awx --version`"
 echo "EXTRA_VARS=${EXTRA_VARS}"
-echo "TEMPLATE='${TEMPLATE}'"
-echo "AWX_HOST=${AWX_HOST}"
-echo "AWX_USER=${AWX_USER}"
-echo "AWX_USER_PASSWORD=${AWX_USER_PASSWORD}"
 
 echo "Running 'awx job_templates launch' and monitoring..."
 awx job_templates launch "${TEMPLATE}" \
