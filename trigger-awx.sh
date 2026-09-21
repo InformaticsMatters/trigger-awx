@@ -26,16 +26,16 @@
 
 set -eo pipefail
 
-: "${AWX_JOB_NAME?Need to set AWX_JOB_NAME}"
-: "${AWX_HOST?Need to set AWX_HOST}"
-: "${AWX_USER?Need to set AWX_USER}"
-: "${AWX_USER_PASSWORD?Need to set AWX_USER_PASSWORD}"
-
 echo "AWX_VERSION=`awx --version`"
 echo "AWX_JOB_NAME='${AWX_JOB_NAME}'"
 echo "AWX_HOST=${AWX_HOST}"
 echo "AWX_USER=${AWX_USER}"
 echo "AWX_USER_PASSWORD=${AWX_USER_PASSWORD}"
+
+: "${AWX_JOB_NAME?Need to set AWX_JOB_NAME}"
+: "${AWX_HOST?Need to set AWX_HOST}"
+: "${AWX_USER?Need to set AWX_USER}"
+: "${AWX_USER_PASSWORD?Need to set AWX_USER_PASSWORD}"
 
 echo "Running 'awx job_templates launch' and monitoring..."
 awx job_templates launch "${AWX_JOB_NAME}" \
